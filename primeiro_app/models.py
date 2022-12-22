@@ -36,3 +36,36 @@ class Livro(models.Model):
 
     def _str_(self):
         return self.titulo
+
+
+class Usuario(models.Model):
+        SEXO_CHOICES = (
+            ('M', u'Masculino'),
+            ('F', u'Feminino'),
+            ('N', u'Não Declarar'),
+        )
+
+        ESTADO_CIVIL_CHOICES = (
+            ('S', u'Solteiro'),
+            ('C', u'Casado'),
+            ('D', u'Divorciado'),
+            ('v', u'Viúv(o/a)'),
+        )
+
+        nome = models.CharField("Nome Completo", max_length=200)
+        data_nasc = models.DateField()
+        cpf = models.CharField("CPF", max_length=120)
+        email = models.EmailField("Email")
+        telefone = models.IntegerField("Telefone")
+        sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
+        estado_civil = models.CharField(max_length=1, choices=ESTADO_CIVIL_CHOICES)
+
+        def _str_(self):
+            return self.cpf
+
+
+class Endereco(models.Model):
+    cep = models.IntegerField("CEP")
+    rua = models.CharField("Rua", max_length=120)
+    numero = models.IntegerField("Numero")
+    complemento = models.TextField(blank=True, null=True)
